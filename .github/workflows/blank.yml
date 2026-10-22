@@ -9,29 +9,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Recuperer le projet
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Installer Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
 
-      - name: Extraire le projet Android
+      - name: Extract Android project
         run: unzip -o ApocalypseTV-source.zip -d .
 
-      - name: Installer Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
 
-      - name: Compiler l'APK
+      - name: Build APK
         run: gradle assembleDebug
 
-      - name: Publier l'APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Apocalypse-TV-APK
